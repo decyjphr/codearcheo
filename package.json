@@ -1,0 +1,73 @@
+{
+  "name": "codearcheo",
+	"publisher": "decyjphr",
+	"displayName": "Copilot Chat Sample",
+	"description": "VSCode Copilot Chat Extension for Code Archeology",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/decyjphr/codearcheo"
+	},
+	"version": "0.1.0",
+	"engines": {
+		"vscode": "^1.92.0"
+	},
+	"categories": [
+		"AI",
+		"Chat"
+	],
+	"extensionDependencies": [
+		"github.copilot-chat",
+		"GitHub.vscode-codeql"
+	],
+	"activationEvents": [],
+	"contributes": {
+		"chatParticipants": [
+			{
+				"id": "codearcheo-vscode-chat",
+				"fullName": "Codearcheo",
+				"name": "codearcheo",
+				"description": ":spade: Use natural language and uncover logic in your legacy code using Copilot chat",
+				"isSticky": true,
+				"commands": [
+					{
+						"name": "funny",
+						"description": "Come with descriptive labels to help you understand your code"
+					},
+					{
+						"name": "dig",
+						"description": "Do whatever you want..."
+					}
+				]
+			}
+		],
+		"commands": [
+			{
+				"command": "codearcheo.namesInEditor",
+				"title": "Use Cat Names in Editor"
+			},
+			{
+				"command": "codearcheo.astInEditor",
+				"title": "Use AST in Editor"
+			}
+
+		]
+	},
+	"main": "./out/extension.js",
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"lint": "eslint \"src/**/*.ts\"",
+		"watch": "tsc -watch -p ./"
+	},
+	"dependencies": {
+		"@vscode/prompt-tsx": "^0.2.6-alpha"
+	},
+	"devDependencies": {
+    "@types/node": "^22.2.0",
+    "typescript": "^5.5.4",
+		"@types/vscode": "1.90.0",
+		"@typescript-eslint/eslint-plugin": "^7.14.0",
+		"@typescript-eslint/parser": "^7.14.0",
+		"eslint": "^8.26.0"
+	}
+}
