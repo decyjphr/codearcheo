@@ -12,7 +12,7 @@ Based on the provided code snippet and context, here are the key triggers:
 
 1. **Command Execution**:
 
-   - The app listens for specific commands to be executed. For example, the command associated with [`CODEARCHEO_AST_COMMAND_ID`](vscode-file://vscode-app/private/var/folders/5z/38q3q4j15zg34f5_sk5b1fzm0000gn/T/AppTranslocation/10611FDF-064C-4985-BC2E-D5CEC51F1662/d/Visual Studio Code - Insiders.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html) will trigger the app to process and generate a response.
+   - The app listens for specific commands to be executed. For example, the command associated with `CODEARCHEO_AST_COMMAND_ID` will trigger the app to process and generate a response.
 
    - Example:
 ```typescript
@@ -115,7 +115,7 @@ Here's a breakdown of the logic:
 
    });
 ```
-   - A button is added to the stream with the command [`CODEARCHEO_AST_COMMAND_ID`](vscode-file://vscode-app/private/var/folders/5z/38q3q4j15zg34f5_sk5b1fzm0000gn/T/AppTranslocation/10611FDF-064C-4985-BC2E-D5CEC51F1662/d/Visual Studio Code - Insiders.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html) and the title "Lets get the AST".
+   - A button is added to the stream with the command `CODEARCHEO_AST_COMMAND_ID` and the title "Lets get the AST".
 
 6. **Logging and Return**:
 ```typescript
@@ -147,48 +147,42 @@ Here's a breakdown of the logic:
 
 | **Objective**                                                | **Implementation**                                           |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Create a VSCode extension for code archeology using Copilot chat | Implemented in [`src/extension.ts`](vscode-file://vscode-app/private/var/folders/5z/38q3q4j15zg34f5_sk5b1fzm0000gn/T/AppTranslocation/10611FDF-064C-4985-BC2E-D5CEC51F1662/d/Visual Studio Code - Insiders.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html) |
-| Replace Python function definitions with cat sounds          | Implemented in the `activate` function in [`src/extension.ts`](vscode-file://vscode-app/private/var/folders/5z/38q3q4j15zg34f5_sk5b1fzm0000gn/T/AppTranslocation/10611FDF-064C-4985-BC2E-D5CEC51F1662/d/Visual Studio Code - Insiders.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html) using [`fragment.replaceAll('def', 'meow')`](vscode-file://vscode-app/private/var/folders/5z/38q3q4j15zg34f5_sk5b1fzm0000gn/T/AppTranslocation/10611FDF-064C-4985-BC2E-D5CEC51F1662/d/Visual Studio Code - Insiders.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html) |
-| Provide chat participants and commands for the extension     | Defined in the [`contributes`](vscode-file://vscode-app/private/var/folders/5z/38q3q4j15zg34f5_sk5b1fzm0000gn/T/AppTranslocation/10611FDF-064C-4985-BC2E-D5CEC51F1662/d/Visual Studio Code - Insiders.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html) section of [`package.json`](vscode-file://vscode-app/private/var/folders/5z/38q3q4j15zg34f5_sk5b1fzm0000gn/T/AppTranslocation/10611FDF-064C-4985-BC2E-D5CEC51F1662/d/Visual Studio Code - Insiders.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html) |
-| Compile TypeScript code                                      | Configured in [`tsconfig.json`](vscode-file://vscode-app/private/var/folders/5z/38q3q4j15zg34f5_sk5b1fzm0000gn/T/AppTranslocation/10611FDF-064C-4985-BC2E-D5CEC51F1662/d/Visual Studio Code - Insiders.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html) and executed via npm scripts in [`package.json`](vscode-file://vscode-app/private/var/folders/5z/38q3q4j15zg34f5_sk5b1fzm0000gn/T/AppTranslocation/10611FDF-064C-4985-BC2E-D5CEC51F1662/d/Visual Studio Code - Insiders.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html) |
+| Create a VSCode extension for code archeology using Copilot chat | Implemented in `src/extension.ts` |
+| Replace Python function definitions with cat sounds          | Implemented in the `activate` function in `src/extension.ts` using `fragment.replaceAll('def', 'meow')` |
+| Provide chat participants and commands for the extension     | Defined in the `contributes` section of `package.json` |
+| Compile TypeScript code                                      | Configured in `tsconfig.json` and executed via npm scripts in `package.json` |
 | Run and watch tests                                          | Configured in tasks.json and launch.json                     |
-| Lint TypeScript code                                         | Configured in [`package.json`](vscode-file://vscode-app/private/var/folders/5z/38q3q4j15zg34f5_sk5b1fzm0000gn/T/AppTranslocation/10611FDF-064C-4985-BC2E-D5CEC51F1662/d/Visual Studio Code - Insiders.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html) with ESLint and TypeScript ESLint plugins |
+| Lint TypeScript code                                         | Configured in `package.json` with ESLint and TypeScript ESLint plugins |
 
 ### Additional Key Points
 
-- **Project Name**: [`codearcheo`](vscode-file://vscode-app/private/var/folders/5z/38q3q4j15zg34f5_sk5b1fzm0000gn/T/AppTranslocation/10611FDF-064C-4985-BC2E-D5CEC51F1662/d/Visual Studio Code - Insiders.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html)
+- **Project Name**: `codearcheo`
 
-- **Publisher**: [`decyjphr`](vscode-file://vscode-app/private/var/folders/5z/38q3q4j15zg34f5_sk5b1fzm0000gn/T/AppTranslocation/10611FDF-064C-4985-BC2E-D5CEC51F1662/d/Visual Studio Code - Insiders.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html)
+- **Publisher**: `decyjphr`
 
 - **Description**: VSCode Copilot Chat Extension for Code Archeology
 
-- **Repository URL**: [GitHub Repository](vscode-file://vscode-app/private/var/folders/5z/38q3q4j15zg34f5_sk5b1fzm0000gn/T/AppTranslocation/10611FDF-064C-4985-BC2E-D5CEC51F1662/d/Visual Studio Code - Insiders.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html)
+- **Repository URL**: [GitHub Repository](./)
 
-- Main Features
-
-  :
+- Main Features:
 
   - Chat participants for natural language interaction with code
   - Commands to use cat names and AST in the editor
 
-- Dependencies
-
-  :
+- Dependencies:
 
   - `@vscode/prompt-tsx`
   - `@types/node`
-  - [`typescript`](vscode-file://vscode-app/private/var/folders/5z/38q3q4j15zg34f5_sk5b1fzm0000gn/T/AppTranslocation/10611FDF-064C-4985-BC2E-D5CEC51F1662/d/Visual Studio Code - Insiders.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html)
+  - `typescript`
   - `@types/vscode`
   - `@typescript-eslint/eslint-plugin`
   - `@typescript-eslint/parser`
-  - [`eslint`](vscode-file://vscode-app/private/var/folders/5z/38q3q4j15zg34f5_sk5b1fzm0000gn/T/AppTranslocation/10611FDF-064C-4985-BC2E-D5CEC51F1662/d/Visual Studio Code - Insiders.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html)
+  - `eslint`
 
-- Development Scripts
+- Development Scripts:
 
-  :
+  - `compile`: Compiles the TypeScript code
+  - `lint`: Lints the TypeScript code
+  - `watch`: Watches for changes and recompiles the code
 
-  - [`compile`](vscode-file://vscode-app/private/var/folders/5z/38q3q4j15zg34f5_sk5b1fzm0000gn/T/AppTranslocation/10611FDF-064C-4985-BC2E-D5CEC51F1662/d/Visual Studio Code - Insiders.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html): Compiles the TypeScript code
-  - [`lint`](vscode-file://vscode-app/private/var/folders/5z/38q3q4j15zg34f5_sk5b1fzm0000gn/T/AppTranslocation/10611FDF-064C-4985-BC2E-D5CEC51F1662/d/Visual Studio Code - Insiders.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html): Lints the TypeScript code
-  - [`watch`](vscode-file://vscode-app/private/var/folders/5z/38q3q4j15zg34f5_sk5b1fzm0000gn/T/AppTranslocation/10611FDF-064C-4985-BC2E-D5CEC51F1662/d/Visual Studio Code - Insiders.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.html): Watches for changes and recompiles the code
-
-This repository aims to enhance code understanding and interaction using natural language processing and fun elements like cat sounds.
+This repository aims to enhance code understanding and interaction using natural language processing.
