@@ -1,7 +1,7 @@
 {
   "name": "codearcheo",
 	"publisher": "decyjphr",
-	"displayName": "Copilot Chat Sample",
+	"displayName": "Copilot Chat Extension for Code Archeology",
 	"description": "VSCode Copilot Chat Extension for Code Archeology",
 	"repository": {
 		"type": "git",
@@ -26,16 +26,24 @@
 				"id": "codearcheo-vscode-chat",
 				"fullName": "Codearcheo",
 				"name": "codearcheo",
-				"description": ":spade: Use natural language and uncover logic in your legacy code using Copilot chat",
+				"description": " 🔍 Unlock secrets in your legacy code using Copilot chat",
 				"isSticky": true,
 				"commands": [
 					{
-						"name": "funny",
-						"description": "Come with descriptive labels to help you understand your code"
-					},
-					{
 						"name": "dig",
 						"description": "Do whatever you want..."
+					},
+					{
+						"name": "goals",
+						"description": "What are the goals of the project..."	
+					},
+					{
+						"name": "triggers",
+						"description": "What are the triggers for the functionality..."	
+					},
+					{
+						"name": "focus",
+						"description": "Focus on a program..."	
 					}
 				]
 			}

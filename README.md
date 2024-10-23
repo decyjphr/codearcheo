@@ -2,11 +2,9 @@
 
 This is a Copilot Chat Extension for VSCode that helps with analyzing legacy code.
 
-The main logic is implemented as a Visual Studio Code extension.  Overall, this code is designed to interact with a Copilot language model, process its response, and update the UI accordingly, while handling errors and logging usage. 
+The main logic is implemented as a Visual Studio Code extension.  Overall, this code is designed to interact with a Copilot language model, process its response, and update the UI accordingly, while handling errors and logging usage.  
 
-The app processes and generates a response when specific commands or user actions are triggered. 
-
-
+The app processes and generates a response when specific commands or user actions are triggered.  
 
 Based on the provided code snippet and context, here are the key triggers:
 
@@ -15,6 +13,7 @@ Based on the provided code snippet and context, here are the key triggers:
    - The app listens for specific commands to be executed. For example, the command associated with `CODEARCHEO_AST_COMMAND_ID` will trigger the app to process and generate a response.
 
    - Example:
+
 ```typescript
      vscode.commands.registerCommand(CODEARCHEO_AST_COMMAND_ID, async () => {
 
@@ -22,19 +21,23 @@ Based on the provided code snippet and context, here are the key triggers:
 
      });
 ```
+
 2. **Model Selection**:
 
    - When a user selects a language model using `vscode.lm.selectChatModels`, it triggers the app to prepare and send a request to the model.
 
    - Example:
+
 ```typescript
      const [model] = await vscode.lm.selectChatModels(MODEL_SELECTOR);
 ```
+
 3. **Button Click**:
 
    - The app adds a button to the UI stream, and clicking this button triggers a specific command.
 
    - Example:
+
 ```typescript
      stream.button({
 
@@ -44,11 +47,13 @@ Based on the provided code snippet and context, here are the key triggers:
 
      });
 ```
+
 4. **Specific Commands in Requests**:
 
    - The app processes specific commands within requests, such as 'funny' or 'dig', to generate appropriate responses.
 
    - Example:
+
 ```typescript
      if (request.command === 'funny') {
 
@@ -60,12 +65,13 @@ Based on the provided code snippet and context, here are the key triggers:
 
      }
 ```
-These triggers ensure that the app responds to user actions and commands, processes the input, and generates the appropriate responses.
 
+These triggers ensure that the app responds to user actions and commands, processes the input, and generates the appropriate responses.
 
 Here's a breakdown of the logic:
 
 1. **Model Selection**:
+
   ```typescript
   const [model] = await vscode.lm.selectChatModels(MODEL_SELECTOR);
   ```
@@ -73,6 +79,7 @@ Here's a breakdown of the logic:
 - The code selects a language model using `vscode.lm.selectChatModels` with a `MODEL_SELECTOR`.
 
 2. **Message Preparation**:
+
 ```typescript
    if (model) {
 
@@ -81,9 +88,11 @@ Here's a breakdown of the logic:
        vscode.LanguageModelChatMessage.User(topic)
      ];
 ```
-   - If a model is selected, it prepares a list of messages. The first message instructs the model to respond as a cat explaining computer science concepts humorously. The second message contains the topic to be explained.
+
+- If a model is selected, it prepares a list of messages. The first message instructs the model to respond as a cat explaining computer science concepts humorously. The second message contains the topic to be explained.
 
 3. **Sending Request and Handling Response**:
+
 ```typescript
    const chatResponse = await model.sendRequest(messages, {}, token);
 
@@ -93,9 +102,11 @@ Here's a breakdown of the logic:
 
    }
 ```
-   - The code sends the prepared messages to the model and awaits the response. It then streams the response fragments as markdown to the `stream`.
+
+- The code sends the prepared messages to the model and awaits the response. It then streams the response fragments as markdown to the `stream`.
 
 4. **Error Handling**:
+
 ```typescript
    } catch(err) {
 
@@ -103,9 +114,11 @@ Here's a breakdown of the logic:
 
    }
 ```
-   - If an error occurs during the process, it is caught and handled by the `handleError` function.
+
+- If an error occurs during the process, it is caught and handled by the `handleError` function.
 
 5. **Button Creation**:
+
 ```typescript
    stream.button({
 
@@ -115,17 +128,21 @@ Here's a breakdown of the logic:
 
    });
 ```
-   - A button is added to the stream with the command `CODEARCHEO_AST_COMMAND_ID` and the title "Lets get the AST".
+
+- A button is added to the stream with the command `CODEARCHEO_AST_COMMAND_ID` and the title "Lets get the AST".
 
 6. **Logging and Return**:
+
 ```typescript
    logger.logUsage('request', { kind: 'funny'});
 
    return { metadata: { command: 'funny' } };
 ```
-   - The usage of the request is logged with the kind 'funny', and the function returns metadata indicating the command 'funny'.
+
+- The usage of the request is logged with the kind 'funny', and the function returns metadata indicating the command 'funny'.
 
 7. **Handling 'dig' Command**:
+
 ```typescript
    } else if (request.command === 'dig') {
 
@@ -141,9 +158,8 @@ Here's a breakdown of the logic:
 
          // Here's an example of how to use the prompt-tsx library to build a prompt
 ```
-   - If the command is 'dig', it shows a progress message "Digging for secrets..." and attempts to select a model again. The rest of the logic for this command is not shown in the provided excerpt.
 
-
+- If the command is 'dig', it shows a progress message "Digging for secrets..." and attempts to select a model again. The rest of the logic for this command is not shown in the provided excerpt.
 
 | **Objective**                                                | **Implementation**                                           |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |

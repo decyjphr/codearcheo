@@ -1,6 +1,9 @@
-import { renderPrompt } from '@vscode/prompt-tsx';
+import { PromptElementCtor, PromptElementProps, renderPrompt } from '@vscode/prompt-tsx';
 import * as vscode from 'vscode';
-import { DigPrompt } from './dig';
+import { DigPrompt, PromptProps } from './dig';
+import { GoalsPrompt } from './goals';
+import { TriggersPrompt } from './triggers';
+import { FocusPrompt } from './focus';
 
 const CODEARCHEO_NAMES_COMMAND_ID = 'codearcheo.namesInEditor';
 const CODEARCHEO_AST_COMMAND_ID = 'codearcheo.astInEditor';
@@ -22,61 +25,62 @@ export function activate(context: vscode.ExtensionContext) {
         // To talk to an LLM in your subcommand handler implementation, your
         // extension can use VS Code's `requestChatAccess` API to access the Copilot API.
         // The GitHub Copilot Chat extension implements this provider.
-        if (request.command === 'funny') {
-            stream.progress('Coming up with something funny...');
-            const topic = getTopic(context.history);
-            try {
-                // To get a list of all available models, do not pass any selector to the selectChatModels.
-                const [model] = await vscode.lm.selectChatModels(MODEL_SELECTOR);
-                if (model) {
-                    const messages = [
-                        vscode.LanguageModelChatMessage.User('You are a cat! Your job is to explain computer science concepts in the funny manner of a cat. Always start your response by stating what concept you are explaining. Always include code samples.'),
-                        vscode.LanguageModelChatMessage.User(topic)
-                    ];
+        // if (request.command === 'funny') {
+        //     stream.progress('Coming up with something funny...');
+        //     const topic = getTopic(context.history);
+        //     try {
+        //         // To get a list of all available models, do not pass any selector to the selectChatModels.
+        //         const [model] = await vscode.lm.selectChatModels(MODEL_SELECTOR);
+        //         if (model) {
+        //             const messages = [
+        //                 vscode.LanguageModelChatMessage.User('You are a cat! Your job is to explain computer science concepts in the funny manner of a cat. Always start your response by stating what concept you are explaining. Always include code samples.'),
+        //                 vscode.LanguageModelChatMessage.User(topic)
+        //             ];
 
-                    const chatResponse = await model.sendRequest(messages, {}, token);
-                    for await (const fragment of chatResponse.text) {
-                        stream.markdown(fragment);
-                    }
-                }
-            } catch(err) {
-                handleError(logger, err, stream);
-            }
+        //             const chatResponse = await model.sendRequest(messages, {}, token);
+        //             for await (const fragment of chatResponse.text) {
+        //                 stream.markdown(fragment);
+        //             }
+        //         }
+        //     } catch(err) {
+        //         handleError(logger, err, stream);
+        //     }
 
-            stream.button({
-                command: CODEARCHEO_AST_COMMAND_ID,
-                title: vscode.l10n.t('Lets get the AST')
-            });
+        //     stream.button({
+        //         command: CODEARCHEO_AST_COMMAND_ID,
+        //         title: vscode.l10n.t('Lets get the AST')
+        //     });
 
-            // stream.button({
-            //     command: CODEARCHEO_NAMES_COMMAND_ID,
-            //     title: vscode.l10n.t('Lets find some labels')
-            // });
+        //     // stream.button({
+        //     //     command: CODEARCHEO_NAMES_COMMAND_ID,
+        //     //     title: vscode.l10n.t('Lets find some labels')
+        //     // });
             
-            logger.logUsage('request', { kind: 'funny'});
-            return { metadata: { command: 'funny' } };
+        //     logger.logUsage('request', { kind: 'funny'});
+        //     return { metadata: { command: 'funny' } };
+        // } else 
+        if (request.command === 'goals') {
+            stream.progress('Getting the goals...');
+            await processCommandRequest(GoalsPrompt, request, token, stream, logger);
+            logger.logUsage('request', { kind: 'goals'});
+            return { metadata: { command: 'goals' } };
+        } else if (request.command === 'triggers') {
+            stream.progress('Getting the triggers...');
+            await processCommandRequest(TriggersPrompt, request, token, stream, logger);
+            logger.logUsage('request', { kind: 'triggers'});
+            return { metadata: { command: 'goals' } };
+        } else if (request.command === 'focus') {
+            stream.progress('Focusing on the file in the editor...');
+            await processCommandRequest(FocusPrompt, request, token, stream, logger);
+            logger.logUsage('request', { kind: 'triggers'});
+            return { metadata: { command: 'goals' } };            
         } else if (request.command === 'dig') {
-            stream.progress('Digging for secrets...');
-            try {
-                const [model] = await vscode.lm.selectChatModels(MODEL_SELECTOR);
-                let documentText = '';
-                if (model) {
-                    // Here's an example of how to use the prompt-tsx library to build a prompt
-                    const { messages } = await renderPrompt(
-                        DigPrompt,
-                        { userQuery: request.prompt },
-                        { modelMaxPromptTokens: model.maxInputTokens },
-                        model);
-                    
-                    const chatResponse = await model.sendRequest(messages, {}, token);
-                    for await (const fragment of chatResponse.text) {
-                        stream.markdown(fragment);
-                    }
-                }
-            } catch(err) {
-                handleError(logger, err, stream);
-            }
-
+            stream.progress('Digging for logic and structure...');
+            await processCommandRequest(DigPrompt, request, token, stream, logger);
+            stream.button({
+                command: "codeQL.openDocumentation",
+                title: vscode.l10n.t('Open CodeQL Documentation')
+            });
             logger.logUsage('request', { kind: 'dig'});
             return { metadata: { command: 'dig' } };
         } else {
@@ -110,12 +114,12 @@ export function activate(context: vscode.ExtensionContext) {
     // when you type `@`, and can contribute sub-commands in the chat input
     // that appear when you type `/`.
     const codearcheo = vscode.chat.createChatParticipant(CODEARCHEO_PARTICIPANT_ID, handler);
-    codearcheo.iconPath = vscode.Uri.joinPath(context.extensionUri, 'cat.jpeg');
+    codearcheo.iconPath = vscode.Uri.joinPath(context.extensionUri, 'codearcheo.jpeg');
     codearcheo.followupProvider = {
         provideFollowups(result: ICodearcheoChatResult, context: vscode.ChatContext, token: vscode.CancellationToken) {
             return [{
-                prompt: 'let us dig',
-                label: vscode.l10n.t('Dig for secrets'),
+                prompt: 'Dig for logic and structure',
+                label: vscode.l10n.t('Let us dig deeper into the code'),
                 command: 'dig'
             } satisfies vscode.ChatFollowup];
         }
@@ -255,6 +259,27 @@ export function activate(context: vscode.ExtensionContext) {
             // }
         }),
     );
+}
+
+async function processCommandRequest(ctor: PromptElementCtor<PromptElementProps<PromptProps>, any>, request: vscode.ChatRequest, token: vscode.CancellationToken, stream: vscode.ChatResponseStream, logger: vscode.TelemetryLogger) {
+    try {
+        const [model] = await vscode.lm.selectChatModels(MODEL_SELECTOR);
+        if (model) {
+            // Here's an example of how to use the prompt-tsx library to build a prompt
+            const { messages } = await renderPrompt(
+                ctor,
+                { userQuery: request.prompt },
+                { modelMaxPromptTokens: model.maxInputTokens },
+                model);
+
+            const chatResponse = await model.sendRequest(messages, {}, token);
+            for await (const fragment of chatResponse.text) {
+                stream.markdown(fragment);
+            }
+        }
+    } catch (err) {
+        handleError(logger, err, stream);
+    }
 }
 
 function handleError(logger: vscode.TelemetryLogger, err: any, stream: vscode.ChatResponseStream): void {
